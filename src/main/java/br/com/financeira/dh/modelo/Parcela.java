@@ -20,10 +20,11 @@ public class Parcela {
 	@ManyToOne
 	private Proposta proposta;
 
-	public Parcela(Integer numeroParcela, LocalDate dataParcela, String status) {
+	public Parcela(Integer numeroParcela, LocalDate dataParcela, String status, Proposta proposta) {
 		this.numeroParcela = numeroParcela;
 		this.dataParcela = dataParcela;
 		this.status = status;
+		this.proposta = proposta;
 	}
 
 	public Parcela() {
@@ -44,6 +45,10 @@ public class Parcela {
 
 	public String getStatus() {
 		return status;
+	}
+
+	public Proposta getProposta() {
+		return proposta;
 	}
 
 }

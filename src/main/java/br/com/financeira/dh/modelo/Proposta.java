@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Proposta {
@@ -23,19 +22,18 @@ public class Proposta {
 	private BigDecimal valor;
 	private BigDecimal taxaJuros;
 	private boolean status;
-	@OneToOne
-	private Cliente cliente;
+
 	@OneToMany(mappedBy = "proposta", cascade = CascadeType.ALL)
 	private List<Parcela> parcelas;
 
 	public Proposta(LocalDate dataContratacao, Integer quantidadeParcelas, BigDecimal valor, BigDecimal taxaJuros,
-			boolean status, Cliente cliente) {
+			boolean status, List<Parcela> parcelas) {
 		this.dataContratacao = dataContratacao;
 		this.quantidadeParcelas = quantidadeParcelas;
 		this.valor = valor;
 		this.taxaJuros = taxaJuros;
 		this.status = status;
-		this.cliente = cliente;
+		this.parcelas = parcelas;
 	}
 
 	public Proposta() {
@@ -66,8 +64,8 @@ public class Proposta {
 		return status;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
+	public List<Parcela> getParcelas() {
+		return parcelas;
 	}
 
 }
