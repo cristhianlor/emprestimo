@@ -12,7 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Cliente {
@@ -27,11 +26,11 @@ public class Cliente {
 	private BigDecimal patrimonio;
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private List<Conta> contas = new ArrayList<>();
-	@OneToOne
-	private Proposta proposta;
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+	private List<Proposta> propostas;
 
 	public Cliente(String nome, String cpf, LocalDate dataContrato, BigDecimal salario, BigDecimal patrimonio,
-			List<Conta> contas, Proposta proposta) {
+			List<Conta> contas, List<Proposta> propostas) {
 
 		this.nome = nome;
 		this.cpf = cpf;
@@ -39,7 +38,7 @@ public class Cliente {
 		this.salario = salario;
 		this.patrimonio = patrimonio;
 		this.contas = contas;
-		this.proposta = proposta;
+		this.propostas = propostas;
 	}
 
 	public Cliente() {
@@ -84,8 +83,8 @@ public class Cliente {
 		return contas;
 	}
 
-	public Proposta getProposta() {
-		return proposta;
+	public List<Proposta> getProposta() {
+		return propostas;
 	}
 
 }

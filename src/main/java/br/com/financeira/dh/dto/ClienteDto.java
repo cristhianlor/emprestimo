@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.financeira.dh.modelo.Conta;
-import br.com.financeira.dh.modelo.Proposta;
 
 public class ClienteDto {
 
@@ -17,14 +16,10 @@ public class ClienteDto {
 	private BigDecimal salario;
 	private BigDecimal patrimonio;
 	private List<Conta> contas = new ArrayList<>();
-	private Proposta proposta;
-
-	public ClienteDto() {
-
-	}
+	private Integer propostaId;
 
 	public ClienteDto(Integer id, String nome, String cpf, LocalDate dataContrato, BigDecimal salario,
-			BigDecimal patrimonio, List<Conta> contas, Proposta proposta) {
+			BigDecimal patrimonio, List<Conta> contas, Integer propostaId) {
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
@@ -32,7 +27,7 @@ public class ClienteDto {
 		this.salario = salario;
 		this.patrimonio = patrimonio;
 		this.contas = contas;
-		this.proposta = proposta;
+		this.propostaId = propostaId;
 	}
 
 	public Integer getId() {
@@ -63,8 +58,8 @@ public class ClienteDto {
 		return contas;
 	}
 
-	public Proposta getProposta() {
-		return proposta;
+	public Integer getIdProposta() {
+		return propostaId;
 	}
 
 }
