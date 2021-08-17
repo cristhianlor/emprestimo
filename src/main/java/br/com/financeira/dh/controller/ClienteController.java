@@ -9,9 +9,11 @@ import br.com.financeira.dh.repository.ClienteRepository;
 @RestController
 @RequestMapping("/cliente")
 public class ClienteController {
-	
+
 	@Autowired
 	private ClienteRepository clienteRepository;
+
+	
 	
 	
 	

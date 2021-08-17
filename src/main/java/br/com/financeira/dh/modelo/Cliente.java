@@ -3,7 +3,6 @@ package br.com.financeira.dh.modelo;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -25,7 +24,7 @@ public class Cliente {
 	private BigDecimal salario;
 	private BigDecimal patrimonio;
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
-	private List<Conta> contas = new ArrayList<>();
+	private List<Conta> contas;
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private List<Proposta> propostas;
 

@@ -18,10 +18,10 @@ public class Proposta {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private LocalDate dataContratacao;
+	private LocalDate dataContratacao = LocalDate.now();
 	private Integer quantidadeParcelas;
-	private BigDecimal valor;
-	private BigDecimal taxaJuros;
+	private BigDecimal valor = BigDecimal.ZERO;
+	private BigDecimal taxaJuros = BigDecimal.ZERO;
 	private boolean status;
 
 	@OneToMany(mappedBy = "proposta", cascade = CascadeType.ALL)
@@ -29,14 +29,14 @@ public class Proposta {
 	@ManyToOne
 	private Cliente cliente;
 
-	public Proposta(LocalDate dataContratacao, Integer quantidadeParcelas, BigDecimal valor, BigDecimal taxaJuros,
-			boolean status, List<Parcela> parcelas) {
-		this.dataContratacao = dataContratacao;
+	public Proposta(Integer quantidadeParcelas, LocalDate dataContratacao, BigDecimal valor, BigDecimal taxaJuros,
+			boolean status, Cliente cliente) {
+		
 		this.quantidadeParcelas = quantidadeParcelas;
 		this.valor = valor;
 		this.taxaJuros = taxaJuros;
 		this.status = status;
-		this.parcelas = parcelas;
+		this.cliente = cliente;
 	}
 
 	public Proposta() {
@@ -67,8 +67,8 @@ public class Proposta {
 		return status;
 	}
 
-	public List<Parcela> getParcelas() {
-		return parcelas;
+	public Cliente getCliente() {
+		return cliente;
 	}
 
 }
