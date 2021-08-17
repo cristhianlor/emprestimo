@@ -18,7 +18,7 @@ public class Proposta {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private LocalDate dataContratacao = LocalDate.now();
+	private LocalDate dataContratacao;
 	private Integer quantidadeParcelas;
 	private BigDecimal valor = BigDecimal.ZERO;
 	private BigDecimal taxaJuros = BigDecimal.ZERO;
@@ -29,9 +29,9 @@ public class Proposta {
 	@ManyToOne
 	private Cliente cliente;
 
-	public Proposta(Integer quantidadeParcelas, LocalDate dataContratacao, BigDecimal valor, BigDecimal taxaJuros,
+	public Proposta(Integer quantidadeParcelas, BigDecimal valor, BigDecimal taxaJuros,
 			boolean status, Cliente cliente) {
-		
+		this.dataContratacao = LocalDate.now();
 		this.quantidadeParcelas = quantidadeParcelas;
 		this.valor = valor;
 		this.taxaJuros = taxaJuros;

@@ -20,9 +20,9 @@ public class Cliente {
 	private Integer id;
 	private String nome;
 	private String cpf;
-	private LocalDate dataContrato;
-	private BigDecimal salario;
-	private BigDecimal patrimonio;
+	private LocalDate dataContrato = LocalDate.now();
+	private BigDecimal salario = BigDecimal.ZERO;
+	private BigDecimal patrimonio = BigDecimal.ZERO;
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private List<Conta> contas;
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)

@@ -3,23 +3,22 @@ package br.com.financeira.dh.dto;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import br.com.financeira.dh.modelo.Cliente;
 import br.com.financeira.dh.modelo.Proposta;
 import br.com.financeira.dh.repository.ClienteRepository;
 
 public class PropostaInputDto {
 
 	private Integer quantidadeParcelas;
-	private LocalDate dataContratacao;
 	private BigDecimal valor;
 	private BigDecimal taxaJuros;
 	private boolean status;
 	private Integer clienteId;
 
-	public PropostaInputDto(Integer quantidadeParcelas, LocalDate dataContratacao, BigDecimal valor,
+	public PropostaInputDto(Integer quantidadeParcelas, BigDecimal valor,
 			BigDecimal taxaJuros, boolean status, Integer clienteId) {
 
 		this.quantidadeParcelas = quantidadeParcelas;
-		this.dataContratacao = dataContratacao;
 		this.valor = valor;
 		this.taxaJuros = taxaJuros;
 		this.status = status;
@@ -47,12 +46,11 @@ public class PropostaInputDto {
 		return clienteId;
 	}
 
-	public LocalDate getDataContratacao() {
-		return dataContratacao;
-	}
-
+	
 	public Proposta converte(ClienteRepository clienteRepository) {
-		return new Proposta(quantidadeParcelas, dataContratacao, valor, taxaJuros, status, clienteRepository.getById(clienteId));
+		Cliente cliente = clienteRepository.getById(clienteId);
+		
+		return new Proposta(quantidadeParcelas, valor, taxaJuros, status, cliente);
 	}
 
 }

@@ -25,8 +25,10 @@ public class PropostaController {
 
 	@PostMapping
 	public ResponseEntity<Proposta> salvar(@RequestBody PropostaInputDto propostaInputDto) {
-
-		Proposta proposta = propostaRepository.save(propostaInputDto.converte(clienteRepository));
+		
+		Proposta proposta1 = propostaInputDto.converte(clienteRepository);
+		
+		Proposta proposta = propostaRepository.save(proposta1);
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(proposta);
 	}
