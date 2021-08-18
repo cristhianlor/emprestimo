@@ -6,11 +6,14 @@ import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Cliente {
@@ -20,11 +23,16 @@ public class Cliente {
 	private Integer id;
 	private String nome;
 	private String cpf;
-	private LocalDate dataContrato = LocalDate.now();
+	@Column(name = "DT_CONTRATO", nullable = false)
+	private LocalDate dataContrato;
+	@Column(name = "VL_SALARIO", nullable = false)
 	private BigDecimal salario = BigDecimal.ZERO;
+	@Column(name = "VL_PATRIMONIO", nullable = false)
 	private BigDecimal patrimonio = BigDecimal.ZERO;
+	@JsonIgnore
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private List<Conta> contas;
+	@JsonIgnore
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private List<Proposta> propostas;
 
