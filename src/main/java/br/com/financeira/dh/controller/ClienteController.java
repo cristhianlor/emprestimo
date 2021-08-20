@@ -20,7 +20,10 @@ public class ClienteController {
 
 	@PostMapping
 	public ResponseEntity<Cliente> salvar(@RequestBody Cliente cliente) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(cliente);
+
+		Cliente clie = clienteRepository.save(cliente);
+		
+		return ResponseEntity.status(HttpStatus.CREATED).body(clie);
 	}
 
 }

@@ -1,7 +1,6 @@
 package br.com.financeira.dh.dto;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 import br.com.financeira.dh.modelo.Cliente;
 import br.com.financeira.dh.modelo.Proposta;

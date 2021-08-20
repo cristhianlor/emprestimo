@@ -1,6 +1,7 @@
 package br.com.financeira.dh.modelo;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -25,11 +26,12 @@ public class Proposta {
 	private LocalDate dataContratacao;
 	@Column(name = "QTD_PARCELA", nullable = false)
 	private Integer quantidadeParcelas;
-	@Column(name = "VLR_CONTRATADO", nullable = false)
+	@Column(name = "VLR_CONTRATADO", nullable = false) // m = 100000 x (1 + 0,02) * 4
 	private BigDecimal valor = BigDecimal.ZERO;
 	@Column(name = "TX_JUROS", nullable = false)
 	private BigDecimal taxaJuros = BigDecimal.ZERO;
 	private boolean status;
+	private BigDecimal montante = BigDecimal.ZERO;
 	@JsonIgnore
 	@OneToMany(mappedBy = "proposta", cascade = CascadeType.ALL)
 	private List<Parcela> parcelas;
@@ -37,14 +39,16 @@ public class Proposta {
 	@ManyToOne
 	private Cliente cliente;
 
-	public Proposta(Integer quantidadeParcelas, BigDecimal valor, BigDecimal taxaJuros,
-			boolean status, Cliente cliente) {
+	public Proposta(Integer quantidadeParcelas, BigDecimal valor, BigDecimal taxaJuros, boolean status,
+			Cliente cliente) {
 		this.dataContratacao = LocalDate.now();
 		this.quantidadeParcelas = quantidadeParcelas;
 		this.valor = valor;
 		this.taxaJuros = taxaJuros;
 		this.status = status;
 		this.cliente = cliente;
+		this.montante = calcula();
+
 	}
 
 	public Proposta() {
@@ -77,6 +81,20 @@ public class Proposta {
 
 	public Cliente getCliente() {
 		return cliente;
+	}
+
+	private BigDecimal calcula() {
+		
+		BigDecimal jurosx = BigDecimal.valueOf(1).add(taxaJuros);
+		
+		BigDecimal montante = jurosx.pow(4).multiply(valor); 
+		
+		return montante;
+	}
+
+	public BigDecimal getMontante() {
+
+		return montante.setScale(2,RoundingMode.HALF_UP);
 	}
 
 }

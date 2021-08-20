@@ -32,5 +32,7 @@ public class PropostaController {
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(proposta);
 	}
+	
+	
 
 }
