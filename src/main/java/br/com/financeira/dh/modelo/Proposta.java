@@ -8,6 +8,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,7 +32,8 @@ public class Proposta {
 	private BigDecimal valor = BigDecimal.ZERO;
 	@Column(name = "TX_JUROS", nullable = false)
 	private BigDecimal taxaJuros = BigDecimal.ZERO;
-	private boolean status;
+	@Enumerated(EnumType.STRING)
+	private StatusProposta status;
 	private BigDecimal montante = BigDecimal.ZERO;
 	@JsonIgnore
 	@OneToMany(mappedBy = "proposta", cascade = CascadeType.ALL)
@@ -39,13 +42,12 @@ public class Proposta {
 	@ManyToOne
 	private Cliente cliente;
 
-	public Proposta(Integer quantidadeParcelas, BigDecimal valor, BigDecimal taxaJuros, boolean status,
-			Cliente cliente) {
+	public Proposta(Integer quantidadeParcelas, BigDecimal valor, BigDecimal taxaJuros, Cliente cliente) {
 		this.dataContratacao = LocalDate.now();
 		this.quantidadeParcelas = quantidadeParcelas;
 		this.valor = valor;
 		this.taxaJuros = taxaJuros;
-		this.status = status;
+		this.status = StatusProposta.PENDENTE;
 		this.cliente = cliente;
 		this.montante = calcula();
 
@@ -75,7 +77,7 @@ public class Proposta {
 		return taxaJuros;
 	}
 
-	public boolean isStatus() {
+	public StatusProposta getStatus() {
 		return status;
 	}
 
@@ -84,17 +86,17 @@ public class Proposta {
 	}
 
 	private BigDecimal calcula() {
-		
+
 		BigDecimal jurosx = BigDecimal.valueOf(1).add(taxaJuros);
-		
-		BigDecimal montante = jurosx.pow(4).multiply(valor); 
-		
+
+		BigDecimal montante = jurosx.pow(4).multiply(valor);
+
 		return montante;
 	}
 
 	public BigDecimal getMontante() {
 
-		return montante.setScale(2,RoundingMode.HALF_UP);
+		return montante.setScale(2, RoundingMode.HALF_UP);
 	}
 
 }
